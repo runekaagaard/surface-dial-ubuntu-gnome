@@ -1,4 +1,4 @@
-import gi
+import gi, os
 gi.require_version('Gtk', '3.0')
 gi.require_version('AppIndicator3', '0.1')
 
@@ -10,7 +10,8 @@ class MyIndicator:
     def __init__(self, root):
         self.app = root
         self.ind = appindicator.Indicator.new(
-            self.app.name, "indicator-messages",
+            self.app.name,
+            os.path.abspath('s.svg'),
             appindicator.IndicatorCategory.APPLICATION_STATUS)
         self.ind.set_status(appindicator.IndicatorStatus.ACTIVE)
         self.menu = Gtk.Menu()
