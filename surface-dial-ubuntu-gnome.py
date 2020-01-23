@@ -7,7 +7,8 @@ import sys
 from errno import ENOENT
 from evdev import InputDevice, UInput
 from evdev.events import InputEvent
-from evdev.ecodes import EV_KEY, EV_REL, REL_WHEEL, REL_WHEEL_HI_RES, BTN_MOUSE
+from evdev.ecodes import (EV_KEY, EV_REL, REL_WHEEL, REL_WHEEL_HI_RES,
+                          BTN_MOUSE)
 from signal import signal, SIGINT
 
 # Automatically discover the device.
@@ -45,22 +46,27 @@ def write(ui, event, _type, code, value):
     ui.syn()
 
 
+# with UInput(cap) as ui:
+#     print("HERE")
+#     while True:
+#         ev = InputEvent(None, None, EV_KEY, REL_WHEEL_HI_RES, -120)
+#         ui.write_event(ev)
+
+# assert False
+
 try:
     with UInput(cap) as ui:
         for event in dev.read_loop():
             if (event.code == 7 and event.type == EV_REL and event.value < 0):
-                print("TURN COUNTER CLOCKWISE")
-                if event.value != -1:
-                    print("    UNEXPECTED COUNTER CLOCKWISE VALUE",
-                          event.value)
-                write(ui, event, EV_REL, REL_WHEEL_HI_RES, event.value*120)
+                print("TURN COUNTER CLOCKWISE", [event.value])
+                write(ui, event, EV_REL, REL_WHEEL,
+                      max(1, round(abs(event.value / 5))))
 
             elif (event.code == 7 and event.type == EV_REL
                   and event.value > 0):
-                print("TURN CLOCKWISE")
-                if event.value != 1:
-                    print("    UNEXPECTED CLOCKWISE VALUE", event.value*120)
-                write(ui, event, EV_REL, REL_WHEEL_HI_RES, event.value)
+                print("TURN CLOCKWISE", [event.value])
+                write(ui, event, EV_REL, REL_WHEEL,
+                      -max(1, round(abs(event.value / 5))))
             elif (event.code == 256 and event.type == EV_KEY
                   and event.value == 1):
                 print("CLICK DOWN")
