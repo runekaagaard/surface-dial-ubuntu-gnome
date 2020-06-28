@@ -15,7 +15,7 @@ most distributions seem to package 1.1.2, so you might have to force an update.
 $ sudo pip3 install -U evdev
 ```
 
-Make sure it's paired via bluetooth and then simply run:
+Make sure it's paired via bluetooth, download `surface-dial-ubuntu-gnome.py` and then simply run:
 
 ```bash
 $ sudo ./surface-dial-ubuntu-gnome.py
