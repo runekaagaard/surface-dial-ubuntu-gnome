@@ -15,7 +15,19 @@ most distributions seem to package 1.1.2, so you might have to force an update.
 $ sudo pip3 install -U evdev
 ```
 
-Make sure it's paired via bluetooth, download `surface-dial-ubuntu-gnome.py` and then simply run:
+Download the Repo and extract it
+
+```bash
+cd ~/Downloads && wget https://github.com/runekaagaard/surface-dial-ubuntu-gnome/archive/master.zip
+```
+
+Using  the command below unzip, and move the program file to your home directory.
+
+```bash
+~/Downloads$ unzip master.zip && mv ~/Downloads/surface-dial-ubuntu-gnome-master/surface-dial-ubuntu-gnome.py ~/ && cd ~
+```
+
+Make sure the Dial is paired via bluetooth, then simply run the command:
 
 ```bash
 $ sudo ./surface-dial-ubuntu-gnome.py
